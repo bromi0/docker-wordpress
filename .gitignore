@@ -1,0 +1,17 @@
+### WordPress ###
+
+wp-content/
+.env
+
+# ignore node dependency directories
+node_modules/
+
+# ignore log files and databases
+*.log
+*.sql
+*.sql.gz
+*.sqlite
+
+# vs code
+.devcontainer
+.vscode

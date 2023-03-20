@@ -1,0 +1,13 @@
+FROM wordpress:php8.0-fpm-alpine
+
+RUN apk add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data && chown -R www-data:www-data /var/www/html
+# install xdebug
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN set -eux; \
+    install-php-extensions xdebug
+# config
+COPY ./wordpress/wp-php.ini $PHP_INI_DIR/conf.d/
+# on a fresh volume, wordpress will copy that content to a volume.
+COPY --chown=www-data:www-data ./src/wp-content/plugins /usr/src/wordpress/wp-content/plugins
+# so we don't have to deal with permissions if we work on windows machine
+COPY --chown=www-data:www-data  ./src/wp-content/uploads /usr/src/wordpress/wp-content/uploads

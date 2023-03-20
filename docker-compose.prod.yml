@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+
+  web:
+    volumes:
+      - ./src/wp-content/uploads:/var/www/html/wp-content/uploads      
+
+  wordpress:  
+    volumes:      
+      - ./src/wp-content/uploads:/var/www/html/wp-content/uploads          
