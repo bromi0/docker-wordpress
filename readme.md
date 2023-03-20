@@ -1,22 +1,25 @@
-1. Create .env file with following parameters:
+# Instructions
 
-DB_ROOT_PASSWORD=
-DB_NAME=wordpress
-DB_USER=wordpress
-DB_PASSWORD=
-SITE= prefix for the container naming
+### Setting up Environment Variables
 
-NEW_SITE_NAME = for the /wp-cli/start.sh script, to replace URIs in database.
-The service 'wp-cli' will run script on the start of the container.
+To get started, create a `.env` file in the project directory with the following parameters:
 
-WEB_PORT= where to we change wordpress site_URL.
-This is mostly for the local develpoment, when you want to start multiple sites.
-In production, probably wordpress itself should expect 80/443 port as usual, so leave this out.
-But if you have reverse proxy, and nginx container is behind it on some other port,
-use [NGINX_PORT] parameter
+- `DB_ROOT_PASSWORD`: Password for the root user of the MySQL database.
+- `DB_NAME`: Name of the WordPress database.
+- `DB_USER`: Username for the WordPress database.
+- `DB_PASSWORD`: Password for the WordPress database user.
+- `SITE`: Prefix for the container naming.
 
-NGINX_PORT= port where docker will map nginx container. Useful for running behind reverse proxy.
+Additionally, you can set the following optional variables:
 
-2. Add database backup to the ./db-init folder if you want. It will initialize database with it.
+- `NEW_SITE_NAME`: A name for the WordPress site that will be used in the `./wp-cli/start.sh` script to replace URIs in the database. The `wp-cli` service will run this script on container startup.
+- `WEB_PORT`: The port number where WordPress site URL can be accessed during local development. This is useful when running multiple sites on the same machine. This is not necessary in production environments where WordPress should expect 80/443 ports as usual. However, if you are running the nginx container behind a reverse proxy on a different port, use the NGINX_PORT parameter.
+- `NGINX_PORT`: The port number where we will map the `web` service (nginx). This is useful when running behind a reverse proxy.
 
-3. In Production, create/populate ./src/uploads folder with appropriate permissions.
+### Adding a Database Backup
+
+If you have a database backup, you can add it to the `./db-init` folder. The backup will be used to initialize the database.
+
+### Setting up Production
+
+If you're setting up for production, create and populate the `./src/uploads` folder with the appropriate permissions.
